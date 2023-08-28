@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import User # change when custom User is complete
 from users.models import ClibUser
 
 # Setting Media Type Variable for multiple choice
@@ -14,6 +13,9 @@ class Collection(models.Model):
     type: models.CharField(max_length=5, choices=MEDIA_TYPE)
     count: models.IntegerField()
     next_avaliable: models.DateTimeField()
+    
+    def __str__(self):
+        return self.title
 
 class Book(models.Model):
     media: models.FileField()
@@ -23,3 +25,6 @@ class Book(models.Model):
     rented_when: models.DateTimeField()
     time_left: models.DateTimeField()
     collection: models.ForeignKey(Collection, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.media.name
